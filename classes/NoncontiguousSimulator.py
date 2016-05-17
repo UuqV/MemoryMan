@@ -45,13 +45,14 @@ class NoncontiguousSimulator:
                     (proc_config.char_id, proc_config.char_id))
         else:
             self.log("Placed process %s in memory:" % proc_config.char_id)
-        self.page_table.add_proc(proc_config)
-        print self.page_table
+            self.page_table.add_proc(proc_config)
+            print self.page_table
 
     def handle_exit(self, proc_config):
-        self.log("Process %s removed from physical memory" % proc_config.char_id)
-        self.page_table.remove_proc(proc_config)
-        print self.page_table
+        if self.page_table.is_in_mem(proc_config):
+            self.log("Process %s removed from physical memory" % proc_config.char_id)
+            self.page_table.remove_proc(proc_config)
+            print self.page_table
 
     def log(self, line):
         'Print one line with time info'

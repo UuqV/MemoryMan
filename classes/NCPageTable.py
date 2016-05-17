@@ -19,6 +19,12 @@ class PageTable:
                 free += 1
         return free
 
+    def is_in_mem(self, proc_config):
+        for i in range (0, self.size):
+            if self.table[i] == proc_config.char_id:
+                return True
+        return False
+
     def add_proc(self, proc_config):
         'Put a proc into memory using first-fit'
         units_needed = proc_config.mem_size
