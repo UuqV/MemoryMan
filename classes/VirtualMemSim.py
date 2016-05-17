@@ -84,7 +84,7 @@ class VirtualMemSim:
                             if ref == candidate:
                                 times_used += 1
                         prev_uses.append(times_used)
-                    victim_index =  prev_uses.index(max(prev_uses)) # Pick the page least recently used
+                    victim_index =  prev_uses.index(min(prev_uses)) # Pick the page least recently used
                     victim_page = self.frame_list[victim_index]
                     self.frame_list[victim_index] = page_num
 
