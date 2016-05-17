@@ -84,12 +84,15 @@ class Contiguous:
                 % (proc_config.char_id, proc_config.mem_size))
         if self.page_table.free >= proc_config.mem_size:
             result = self.page_table.add_first_proc(proc_config)
-            self.activeProcesses.append(proc_config.char_id)
             if result == -1:
                 self.log("Placed process %s in memory:" % proc_config.char_id)
             else:
                 self.log("Cannot place process %s -- starting defragmentation" % proc_config.char_id)
-                print "time %dms: Defragmentation complete (moved %d frames: %s)" % (self.time + result, result, ', '.join(['%s' % i for i in self.activeProcesses]))
+                left = self.page_table.defragment()
+                print "time %dms: Defragmentation complete (moved %d frames: %s)" % (self.time + left, left, ', '.join(['%s' % i for i in self.activeProcesses]))
+                print self.page_table
+                self.page_table.add_first_proc(proc_config)
+            self.activeProcesses.append(proc_config.char_id)
         else:
             self.log("Cannot place process %s -- skipping process %s" % (proc_config.char_id, proc_config.char_id))
         print self.page_table
@@ -100,12 +103,15 @@ class Contiguous:
                 % (proc_config.char_id, proc_config.mem_size))
         if self.page_table.free >= proc_config.mem_size:
             result = self.page_table.add_next_proc(proc_config)
-            self.activeProcesses.append(proc_config.char_id)
             if result == -1:
                 self.log("Placed process %s in memory:" % proc_config.char_id)
             else:
                 self.log("Cannot place process %s -- starting defragmentation" % proc_config.char_id)
-                print "time %dms: Defragmentation complete (moved %d frames: %s)" % (self.time + result, result, ', '.join(['%s' % i for i in self.activeProcesses]))
+                left = self.page_table.defragment()
+                print "time %dms: Defragmentation complete (moved %d frames: %s)" % (self.time + left, left, ', '.join(['%s' % i for i in self.activeProcesses]))
+                print self.page_table
+                self.page_table.add_next_proc(proc_config)
+            self.activeProcesses.append(proc_config.char_id)
         else:
             self.log("Cannot place process %s -- skipping process %s" % (proc_config.char_id, proc_config.char_id))
         print self.page_table
@@ -115,12 +121,15 @@ class Contiguous:
                 % (proc_config.char_id, proc_config.mem_size))
         if self.page_table.free >= proc_config.mem_size:
             result = self.page_table.add_best_proc(proc_config)
-            self.activeProcesses.append(proc_config.char_id)
             if result == -1:
                 self.log("Placed process %s in memory:" % proc_config.char_id)
             else:
                 self.log("Cannot place process %s -- starting defragmentation" % proc_config.char_id)
-                print "time %dms: Defragmentation complete (moved %d frames: %s)" % (self.time + result, result, ', '.join(['%s' % i for i in self.activeProcesses]))
+                left = self.page_table.defragment()
+                print "time %dms: Defragmentation complete (moved %d frames: %s)" % (self.time + left, left, ', '.join(['%s' % i for i in self.activeProcesses]))
+                print self.page_table
+                self.page_table.add_best_proc(proc_config)
+            self.activeProcesses.append(proc_config.char_id)
         else:
             self.log("Cannot place process %s -- skipping process %s" % (proc_config.char_id, proc_config.char_id))
         print self.page_table

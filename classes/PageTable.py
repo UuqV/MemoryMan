@@ -33,9 +33,7 @@ class PageTable:
                 self.table[j] = proc_config.char_id
             return -1
         else:
-            left = self.defragment()
-            self.add_first_proc(proc_config)
-            return left
+            return 1
             
     def add_next_proc(self, proc_config):
         'Put a proc into memory using first-fit'
@@ -59,9 +57,7 @@ class PageTable:
             self.next = i
             return -1
         else:
-            left = self.defragment()
-            self.add_next_proc(proc_config)
-            return left
+            return 1
             
     def add_best_proc(self, proc_config):
         'Put a proc into memory using first-fit'
@@ -91,9 +87,7 @@ class PageTable:
                 self.table[j] = proc_config.char_id
             return -1
         else:
-            left = self.defragment()
-            self.add_best_proc(proc_config)
-            return left
+            return 1
             
     def remove_proc(self, proc_config):
         'Remove all of a procs memory cells'
