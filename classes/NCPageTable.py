@@ -12,6 +12,13 @@ class PageTable:
         self.size = size
         self.table = self.blank_table()
 
+    def count_free(self):
+        free = 0
+        for i in range (0, self.size):
+            if self.table[i] == '.':
+                free += 1
+        return free
+
     def add_proc(self, proc_config):
         'Put a proc into memory using first-fit'
         units_needed = proc_config.mem_size

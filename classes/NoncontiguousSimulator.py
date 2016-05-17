@@ -40,12 +40,11 @@ class NoncontiguousSimulator:
     def handle_arrival(self, proc_config):
         self.log("Process %s arrived (requires %d frames of physical memory)"
                 % (proc_config.char_id, proc_config.mem_size))
-        '''
-        if proc_config.mem_size > self.page_table.free:
+        if proc_config.mem_size > self.page_table.count_free():
             self.log("Cannot place process %s -- skipping process %s" %
                     (proc_config.char_id, proc_config.char_id))
-        '''
-        self.log("Placed process %s in memory:" % proc_config.char_id)
+        else:
+            self.log("Placed process %s in memory:" % proc_config.char_id)
         self.page_table.add_proc(proc_config)
         print self.page_table
 
