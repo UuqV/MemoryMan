@@ -46,7 +46,7 @@ class NoncontiguousSimulator:
         else:
             self.log("Placed process %s in memory:" % proc_config.char_id)
             self.page_table.add_proc(proc_config)
-            print self.page_table
+        print self.page_table
 
     def handle_exit(self, proc_config):
         if self.page_table.is_in_mem(proc_config):
