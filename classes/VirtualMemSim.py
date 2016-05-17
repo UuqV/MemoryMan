@@ -58,7 +58,7 @@ class VirtualMemSim:
                     victim_index =  next_uses.index(max(next_uses)) # Pick the page used farthest away
                     victim_page = self.frame_list[victim_index]
                     self.frame_list[victim_index] = page_num
-                elif algo in ("LRU", "LFU"):
+                elif algo in "LRU":
                     # The last recently used algorithm
                     prev_uses = []
                     prev_refs = self.page_ref_list[:index]
@@ -69,6 +69,21 @@ class VirtualMemSim:
                         if candidate in prev_refs:
                             prev_use = prev_refs.index(candidate)
                         prev_uses.append(prev_use)
+                    victim_index =  prev_uses.index(max(prev_uses)) # Pick the page least recently used
+                    victim_page = self.frame_list[victim_index]
+                    self.frame_list[victim_index] = page_num
+                elif algo == "LFU":
+                    # The least frequently used algorithm
+                    prev_uses = []
+                    prev_refs = self.page_ref_list[:index]
+                    if len(prev_refs) > 0:
+                        prev_refs.reverse()
+                    for candidate in self.frame_list:
+                        times_used = 0
+                        for ref in prev_refs:
+                            if ref == candidate:
+                                times_used += 1
+                        prev_uses.append(times_used)
                     victim_index =  prev_uses.index(max(prev_uses)) # Pick the page least recently used
                     victim_page = self.frame_list[victim_index]
                     self.frame_list[victim_index] = page_num
