@@ -14,11 +14,14 @@ class VirtualMemSim:
             self.reference_page(i, "OPT")
         print "End of OPT simulation (%d page faults)" % self.page_fault_count
         self.frame_list = self.empty_frame_list()
+        self.page_fault_count = 0
 
         print "\nSimulating LRU with fixed frame size of %d" % self.frame_size
         for i in range(0, len(self.page_ref_list)):
             self.reference_page(i, "LRU")
         print "End of LRU simulation (%d page faults)" % self.page_fault_count
+        self.frame_list = self.empty_frame_list()
+        self.page_fault_count = 0
 
         print "\nSimulating LFU with fixed frame size of %d" % self.frame_size
         for i in range(0, len(self.page_ref_list)):
